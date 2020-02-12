@@ -1,4 +1,4 @@
-# Python3 program to solve Rat in a Maze 
+# Python3 program to solve a Maze 
 # problem using backracking 
 
 # Maze size 
