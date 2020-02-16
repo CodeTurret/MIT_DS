@@ -1,9 +1,9 @@
-# Python3 program to solve a Maze 
-# problem using backracking 
-
 # Maze size 
-N = 4
-
+import numpy as np
+rows=int(input("Enter Rows: "))
+cols=int(input("Enter Columns: "))
+rarray = np.random.randint(2,size=(rows,cols))
+print("\nThis is your randomly generated array\n\n", rarray)
 # A utility function to print solution matrix sol 
 def printSolution( sol ): 
 	
@@ -13,10 +13,10 @@ def printSolution( sol ):
 		print("") 
 
 # A utility function to check if x, y is valid 
-# index for N * N Maze 
+# index for rows * cols Maze 
 def isSafe( maze, x, y ): 
 	
-	if x >= 0 and x < N and y >= 0 and y < N and maze[x][y] == 1: 
+	if x >= 0 and x < rows and y >= 0 and y < cols and maze[x][y] == 1: 
 		return True
 	
 	return False
@@ -24,26 +24,28 @@ def isSafe( maze, x, y ):
 """ This function solves the Maze problem using Backtracking. 
 	It mainly uses solveMazeUtil() to solve the problem. It 
 	returns false if no path is possible, otherwise return 
-	true and prints the path in the form of 1s. Please note 
-	that there may be more than one solutions, this function 
-	prints one of the feasable solutions. """
+	true and prints the path in the form of 1s.  """
 def solveMaze( maze ): 
 	
-	# Creating a 4 * 4 2-D list 
-	sol = [ [ 0 for j in range(4) ] for i in range(4) ] 
+	# Creating a rows * cols 2-D list 
+	sol = [ [ 0 for j in range(cols) ] for i in range(rows) ] 
 	
 	if solveMazeUtil(maze, 0, 0, sol) == False: 
-		print("Solution doesn't exist"); 
+		print("\nSolution doesn't exist"); 
 		return False
+	if maze[0][0]==0:
+	    print("\nNo Entry point, Solution doesn't exist")
+	    return False
 	
-	printSolution(sol) 
+	print ("\nYour path out is given below\n")
+	printSolution( sol ) 
 	return True
 	
 # A recursive utility function to solve Maze problem 
 def solveMazeUtil(maze, x, y, sol): 
 	
 	# if (x, y is goal) return True 
-	if x == N - 1 and y == N - 1: 
+	if x == rows - 1 and y == cols - 1: 
 		sol[x][y] = 1
 		return True
 		
@@ -69,9 +71,11 @@ def solveMazeUtil(maze, x, y, sol):
 # Driver program to test above function 
 if __name__ == "__main__": 
 	# Initialising the maze 
-	maze = [ [1, 0, 0, 0], 
-			[1, 1, 0, 1], 
-			[0, 1, 0, 0], 
-			[1, 1, 1, 1] ] 
+	
+	maze = rarray #[[1, 1, 1, 1, 1], 
+			#[1, 0, 0, 0, 0], 
+			#[1, 1, 1, 1, 1], 
+			#[0, 1, 0, 0, 1],
+			#[1, 1, 1, 0, 1]]
 			
 	solveMaze(maze) 
